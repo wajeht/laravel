@@ -9,4 +9,5 @@ an example repo of laravel deployment to caprover server.
 - [ ] write simple events, and jobs on prod to see if they are working properly
 - [ ] install sample filamnet resources
 - [ ] install s3 filesystem driver
+- [ ] dockerize this repo
 
