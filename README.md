@@ -11,5 +11,4 @@ an example repo of laravel deployment to caprover server.
 - [ ] install s3 filesystem driver
 - [ ] dockerize this repo
 - [ ] test to see if web-socket works
-- [ ] add healthcheck to dockerfile
-
+- [x] add healthcheck to dockerfile
