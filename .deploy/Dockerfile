@@ -37,6 +37,7 @@ RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP /etc/crontabs/$NON_ROOT_USER && setc
 
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache curl
 
 # Switch to non-root 'app' user & install app dependencies
 COPY composer.json composer.lock package.json package-lock.json ./
@@ -100,5 +101,7 @@ ARG PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER}
 # Start app
 EXPOSE 80
 COPY ./.deploy/entrypoint.sh /
+
+HEALTHCHECK CMD curl -f http://localhost:80/health-check || exit 1
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]

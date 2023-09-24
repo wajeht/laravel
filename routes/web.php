@@ -16,6 +16,8 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/health-check', fn () => response()->json(['message' => 'ok']));
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
