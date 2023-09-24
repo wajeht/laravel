@@ -35,11 +35,20 @@ COPY ./.deploy/config/crontab /etc/crontabs/$NON_ROOT_USER
 RUN chmod 777 /usr/sbin/crond
 RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP /etc/crontabs/$NON_ROOT_USER && setcap cap_setgid=ep /usr/sbin/crond
 
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
 # Switch to non-root 'app' user & install app dependencies
-COPY composer.json composer.lock ./
+COPY composer.json composer.lock package.json package-lock.json ./
 RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP $LARAVEL_PATH
 USER $NON_ROOT_USER
+
+# Install Node.js dependencies
+RUN npm install
+
+# Install PHP dependencies
 RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader
+
 # Switch to non-root 'app' user & install app dependencies
 RUN rm -rf /home/$NON_ROOT_USER/.composer
 
